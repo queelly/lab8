@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="client:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/client_jar</output-path>
+    <root id="archive" name="client.jar">
+      <element id="module-output" name="client" />
+      <element id="module-output" name="common" />
+      <element id="module-output" name="server" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/logback-core-1.5.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/logback-classic-1.5.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/slf4j-api-2.0.12.jar" path-in-jar="/" />
+      <element id="library" level="project" name="lab8" />
+    </root>
+  </artifact>
+</component>
