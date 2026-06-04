@@ -24,7 +24,11 @@ public class ShowCommand implements Executable {
         if (args.length != 0) {
             return new Response("Command does not accept args!", false);
         }
-        return new Response(collection.getCollectionAsString(), true);
+
+        String message = collection.getCollectionAsString();
+        java.util.ArrayDeque<Worker> workers = collection.getCollection();
+
+        return new Response(message, workers, true);
     }
 
     @Override

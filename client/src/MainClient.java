@@ -1,35 +1,29 @@
-import manager.ClientRuntimeManager;
+import gui.MainFrame;
+import manager.ClientController;
 import network.TCPClient;
+import javax.swing.*;
 
 public class MainClient {
     public static void main(String[] args) {
         String host = "localhost";
-//         String host = "helios.cs.ifmo.ru";
+        // String host = "helios.cs.ifmo.ru";
         int port = 9999;
 
-        TCPClient client = new TCPClient(host, port);
-
-        System.out.println("Попытка подключения к серверу...");
-
-        while (!client.connect()) {
-            try {
-                Thread.sleep(2000);
-                System.out.println("Переподключение...");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
-        }
-
-        ClientRuntimeManager runtime = new ClientRuntimeManager(client);
+        TCPClient tcpClient = new TCPClient(host, port);
+        ClientController controller = new ClientController(tcpClient);
 
         try {
-            runtime.run();
-        } catch (Exception e) {
-            System.err.println("Критическая ошибка во время работы: " + e.getMessage());
-        } finally {
-            client.close();
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ignored) {}
+
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame(controller);
+            mainFrame.setVisible(true);
+        });
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            tcpClient.close();
             System.out.println("Работа клиента завершена.");
-        }
+        }));
     }
 }

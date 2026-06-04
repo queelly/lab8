@@ -18,6 +18,11 @@ public class Worker implements Comparable<Worker>, Validatable, Serializable {
     private final Status status; //Поле не может быть null
     private final Organization organization; //Поле не может быть null
 
+    private String creator; // Имя пользователя, создавшего запись
+
+    public String getCreator() { return creator; }
+    public void setCreator(String creator) { this.creator = creator; }
+
     public Worker(
             Long id,
             String name,
@@ -111,6 +116,7 @@ public class Worker implements Comparable<Worker>, Validatable, Serializable {
                 ", position: " + position +
                 ", status: " + status +
                 ", organization: " + organization +
+                ", creator: " + creator +
                 '}';
     }
 }

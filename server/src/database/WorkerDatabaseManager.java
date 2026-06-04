@@ -187,7 +187,6 @@ public class WorkerDatabaseManager {
     }
 
     private Worker createWorkerFromResultSet(ResultSet rs) throws SQLException {
-        initWorkerTable();
         Long id = (long) rs.getInt("id");
         String name = rs.getString("name");
         Float x = rs.getFloat("coordinates_x");
@@ -197,9 +196,7 @@ public class WorkerDatabaseManager {
         LocalDateTime creationDate = rs.getTimestamp("creation_date").toLocalDateTime();
 
         Double salary = rs.getDouble("salary");
-        if (rs.wasNull()) {
-            salary = null;
-        }
+        if (rs.wasNull()) salary = null;
 
         String positionStr = rs.getString("position");
         Position position = positionStr != null ? Position.valueOf(positionStr) : null;
@@ -207,17 +204,17 @@ public class WorkerDatabaseManager {
         Status status = Status.valueOf(rs.getString("status"));
 
         Double annualTurnover = rs.getDouble("organization_annual_turnover");
-        if (rs.wasNull()) {
-            annualTurnover = null;
-        }
+        if (rs.wasNull()) annualTurnover = null;
 
         Integer employeesCount = rs.getInt("organization_employees_count");
-        if (rs.wasNull()) {
-            employeesCount = null;
-        }
+        if (rs.wasNull()) employeesCount = null;
 
         Organization organization = new Organization(annualTurnover, employeesCount);
 
-        return new Worker(id, name, coordinates, creationDate, salary, position, status, organization);
+        String creator = rs.getString("creator_username");
+        // СОЗДАЕМ ВОРКЕРА
+        Worker worker = new Worker(id, name, coordinates, creationDate, salary, position, status, organization);
+        worker.setCreator(creator);
+        return worker;
     }
 }

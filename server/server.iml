@@ -9,7 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lab8" level="project" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="module" module-name="client" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
